@@ -33,7 +33,7 @@ public class ProductsEJB implements Products {
         try {
             return entityManager.createQuery("SELECT p FROM ProductEntity p").getResultList();
         } catch (NoResultException e) {
-            System.out.println("Product was not found!");
+            System.out.println("Products were not found!");
             return null;
         }
     }
