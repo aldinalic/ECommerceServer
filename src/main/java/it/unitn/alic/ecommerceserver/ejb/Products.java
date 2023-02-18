@@ -5,6 +5,6 @@ import it.unitn.alic.ecommerceserver.entities.ProductEntity;
 import java.util.List;
 
 public interface Products {
-    ProductEntity getProduct(Integer id);
+    ProductEntity getProduct(int id);
     List<ProductEntity> getAllProducts();
 }

@@ -16,8 +16,9 @@ public class ServiceLocator {
         Object service = cache.get(jndiName);
 
         if (service == null) {
-            InitialContext context = new InitialContext();
-            service = context.lookup(jndiName);
+            InitialContext ctx = new InitialContext();
+
+            service = ctx.lookup(jndiName);
             cache.put(jndiName, service);
         }
         return service;

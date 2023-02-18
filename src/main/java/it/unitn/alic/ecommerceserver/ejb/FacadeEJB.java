@@ -21,7 +21,6 @@ public class FacadeEJB implements Facade {
             customersEJB = (Customers) ServiceLocator.getService("java:module/CustomersEJB!it.unitn.alic.ecommerceserver.ejb.Customers");
             ordersEJB = (Orders) ServiceLocator.getService("java:module/OrdersEJB!it.unitn.alic.ecommerceserver.ejb.Orders");
             productsEJB = (Products) ServiceLocator.getService("java:module/ProductsEJB!it.unitn.alic.ecommerceserver.ejb.Products");
-            System.out.println("THIS HAS BEEN TRIGGERED ON STARTUP");
         } catch (NamingException e) {
             throw new RuntimeException(e);
         }

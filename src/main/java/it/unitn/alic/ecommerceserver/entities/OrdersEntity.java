@@ -28,11 +28,28 @@ public class OrdersEntity implements Serializable {
 
     public OrdersEntity() {}
 
-    public OrdersEntity(int amount, String shipping_address, String status, CustomerEntity customer) {
+    public OrdersEntity(CustomerEntity customer, ProductEntity product, int amount, String shipping_address, String status) {
+        this.customer = customer;
+        this.product = product;
         this.amount = amount;
         this.shipping_address = shipping_address;
         this.status = status;
+    }
+
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
         this.customer = customer;
+    }
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 
     public int getAmount() {
@@ -57,14 +74,6 @@ public class OrdersEntity implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public CustomerEntity getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
     }
 
     @Override
