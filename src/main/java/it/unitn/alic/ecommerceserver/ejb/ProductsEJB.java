@@ -18,7 +18,7 @@ public class ProductsEJB implements Products {
     private EntityManager entityManager;
 
     @Override
-    public ProductEntity getSingleProduct(int id) {
+    public ProductEntity getProduct(Integer id) {
         try {
             Query q = entityManager.createQuery("From ProductEntity where id = " + id);
             return (ProductEntity) (q.getSingleResult());

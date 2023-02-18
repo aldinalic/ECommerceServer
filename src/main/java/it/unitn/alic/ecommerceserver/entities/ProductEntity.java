@@ -3,7 +3,6 @@ package it.unitn.alic.ecommerceserver.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +13,7 @@ public class ProductEntity implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Pseq")
     @SequenceGenerator(name = "Pseq", sequenceName = "PRODUCT_SEQUENCE", allocationSize = 1)
-    private Integer id;
+    private int id;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -23,16 +22,13 @@ public class ProductEntity implements Serializable {
     @Column(name = "CATEGORY", nullable = false)
     private String category;
     @Column(name = "STOCK", nullable = false)
-    private Integer stock;
+    private int stock;
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "product")
-    private List<OrderDetailsEntity> orderDetails;
-
     public ProductEntity() {}
 
-    public ProductEntity(String name, String description, String category, Integer stock, BigDecimal price) {
+    public ProductEntity(String name, String description, String category, int stock, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.category = category;
@@ -40,11 +36,11 @@ public class ProductEntity implements Serializable {
         this.price = price;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -72,11 +68,11 @@ public class ProductEntity implements Serializable {
         this.category = category;
     }
 
-    public Integer getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
@@ -88,20 +84,12 @@ public class ProductEntity implements Serializable {
         this.price = price;
     }
 
-    public List<OrderDetailsEntity> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetailsEntity> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductEntity product = (ProductEntity) o;
-        return id.equals(product.id) && name.equals(product.name) && description.equals(product.description) && category.equals(product.category) && stock.equals(product.stock) && price.equals(product.price);
+        return id== product.id && name.equals(product.name) && description.equals(product.description) && category.equals(product.category) && stock == product.stock && price.equals(product.price);
     }
 
     @Override

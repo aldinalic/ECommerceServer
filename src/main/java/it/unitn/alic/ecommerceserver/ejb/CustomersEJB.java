@@ -3,6 +3,7 @@ package it.unitn.alic.ecommerceserver.ejb;
 import it.unitn.alic.ecommerceserver.entities.CustomerEntity;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,10 +18,15 @@ public class CustomersEJB implements Customers {
     private EntityManager entityManager;
 
     @Override
-    public CustomerEntity getSingleCustomer(int id) {
+    public CustomerEntity getCustomer(int id) {
+        System.out.println("ENTERED GET SINGLE CUSTOMER METHOD");
         try {
+            System.out.println("ENTERED GET SINGLE CUSTOMER METHOD");
             Query q = entityManager.createQuery("From CustomerEntity where id = " + id);
-            return (CustomerEntity) (q.getSingleResult());
+            CustomerEntity customerTest = (CustomerEntity) q.getSingleResult();
+
+            System.out.println("AND HIS INFO IS " + customerTest.toString());
+            return customerTest;
         } catch (NoResultException e) {
             System.out.println("Customer was not found!");
             return null;
@@ -28,7 +34,7 @@ public class CustomersEJB implements Customers {
     }
 
     @Override
-    public CustomerEntity getCustomerByLogin(String username, String password) {
+    public CustomerEntity customerLogin(String username, String password) {
         try {
             Query q = entityManager.createQuery("From CustomerEntity where username = " + username + " AND password = " + password);
             return (CustomerEntity) (q.getSingleResult());

@@ -1,6 +1,6 @@
 package it.unitn.alic.ecommerceserver.ejb;
 
-import it.unitn.alic.ecommerceserver.entities.OrderEntity;
+import it.unitn.alic.ecommerceserver.entities.OrdersEntity;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -18,22 +18,16 @@ public class OrdersEJB implements Orders {
     private EntityManager entityManager;
 
     @Override
-    public OrderEntity getSingleOrder(int id) {
+    public List<OrdersEntity> getCustomerOrders(int costumer_id) {
         try {
-            Query q = entityManager.createQuery("From OrderEntity where id = " + id);
-            return (OrderEntity) (q.getSingleResult());
+            Query q = entityManager.createQuery(
+                    "From CustomerEntity where customer.id = " + costumer_id
+            );
+            List<OrdersEntity> orders = q.getResultList();
+            if (orders.isEmpty()) System.out.println("Customer does not have orders!");
+            return orders;
         } catch (NoResultException e) {
-            System.out.println("Order was not found!");
-            return null;
-        }
-    }
-
-    @Override
-    public List<OrderEntity> getOrdersByCustomerId(int costumer_id) {
-        try {
-            return entityManager.createQuery("From OrderEntity where customer_id = " + costumer_id).getResultList();
-        } catch (NoResultException e) {
-            System.out.println("Order was not found!");
+            System.out.println("Customer Orders were not found");
             return null;
         }
     }

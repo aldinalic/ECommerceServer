@@ -2,7 +2,6 @@ package it.unitn.alic.ecommerceserver.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +12,7 @@ public class CustomerEntity implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Cseq")
     @SequenceGenerator(name = "Cseq", sequenceName = "COSTUMER_SEQUENCE", allocationSize = 1)
-    private Integer id;
+    private int id;
 
     @Column(name = "USERNAME", nullable = false)
     private String username;
@@ -24,10 +23,8 @@ public class CustomerEntity implements Serializable {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "customer")
-    private List<OrderEntity> orders;
-
-    public CustomerEntity() {}
+    public CustomerEntity() {
+    }
 
     public CustomerEntity(String username, String password, String email, String address) {
         this.username = username;
@@ -36,11 +33,11 @@ public class CustomerEntity implements Serializable {
         this.address = address;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,20 +73,12 @@ public class CustomerEntity implements Serializable {
         this.address = address;
     }
 
-    public List<OrderEntity> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<OrderEntity> orders) {
-        this.orders = orders;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerEntity customer = (CustomerEntity) o;
-        return id.equals(customer.id) && username.equals(customer.username) && password.equals(customer.password) && email.equals(customer.email) && address.equals(customer.address);
+        return id == customer.id && username.equals(customer.username) && password.equals(customer.password) && email.equals(customer.email) && address.equals(customer.address);
     }
 
     @Override

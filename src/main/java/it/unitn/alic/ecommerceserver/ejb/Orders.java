@@ -1,10 +1,8 @@
 package it.unitn.alic.ecommerceserver.ejb;
 
-import it.unitn.alic.ecommerceserver.entities.OrderEntity;
-
+import it.unitn.alic.ecommerceserver.entities.OrdersEntity;
 import java.util.List;
 
 public interface Orders {
-    OrderEntity getSingleOrder(int id);
-    List<OrderEntity> getOrdersByCustomerId(int costumer_id);
+    List<OrdersEntity> getCustomerOrders(int costumer_id);
 }

@@ -6,45 +6,40 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ORDERS")
-public class OrderEntity implements Serializable {
+public class OrdersEntity implements Serializable {
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Oseq")
-    @SequenceGenerator(name = "Oseq", sequenceName = "ORDERS_SEQUENCE", allocationSize = 1)
-    private Integer id;
+    @JoinColumn(name = "customer_id", nullable = false)
+    @ManyToOne
+    private CustomerEntity customer;
+
+    @Id
+    @JoinColumn(name = "product_id", nullable = false)
+    @ManyToOne
+    private ProductEntity product;
 
     @Column(name = "AMOUNT", nullable = false)
-    private Integer amount;
+    private int amount;
     @Column(name = "SHIPPING_ADDRESS", nullable = false)
     private String shipping_address;
     @Column(name = "STATUS", nullable = false)
     private String status;
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private CustomerEntity customer;
 
-    public OrderEntity() {}
 
-    public OrderEntity(Integer amount, String shipping_address, String status, CustomerEntity customer) {
+    public OrdersEntity() {}
+
+    public OrdersEntity(int amount, String shipping_address, String status, CustomerEntity customer) {
         this.amount = amount;
         this.shipping_address = shipping_address;
         this.status = status;
         this.customer = customer;
     }
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -76,12 +71,12 @@ public class OrderEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderEntity order = (OrderEntity) o;
-        return id.equals(order.id) && customer.equals(order.customer) && amount.equals(order.amount) && shipping_address.equals(order.shipping_address) && status.equals(order.status);
+        OrdersEntity order = (OrdersEntity) o;
+        return customer.equals(order.customer) && product.equals(order.product) && amount == order.amount && shipping_address.equals(order.shipping_address) && status.equals(order.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, amount, shipping_address, status);
+        return Objects.hash(customer, product, amount, shipping_address, status);
     }
 }
